@@ -134,6 +134,4 @@ except KeyboardInterrupt:
     print("Terminated by user.. Quitting. \n")
     time.sleep(1)
     print("Thanks for Using. \U0001f600 \n")
-
-print("see if that works")
     
