@@ -4,6 +4,7 @@ from colorama import *
 import time
 import colorama
 import re
+import urllib.parse
 from bs4 import BeautifulSoup, SoupStrainer
 import os, sys
 
@@ -64,6 +65,7 @@ try:
                     urllists.append(urls['href'])
 
                 for urls in urllists:
+                    urls = urllib.parse.urljoin(target_url, urls)
                     print(urls)
 
             print("\n")
@@ -135,5 +137,4 @@ except KeyboardInterrupt:
     time.sleep(1)
     print("Thanks for Using. \U0001f600 \n")
 
-print("see if that works")
     
