@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import requests
 import subprocess as sp
 from colorama import *
@@ -5,6 +7,7 @@ import time
 import colorama
 import re
 from bs4 import BeautifulSoup, SoupStrainer
+import urllib.parse as urlparse
 import os, sys
 
 sp.call("clear", shell=True)
@@ -56,8 +59,27 @@ try:
             sp.call("clear", shell=True)
             response4 = request(target_url)
             try:                
-                links1 = re.findall('(?:href=")(.*?)"',response4.content)
-                print(links1)
+                test_url9 = "https://" + target_url
+                results = []
+                
+                def fetch_url(url):
+                    response4 = requests.get(url)
+                    return re.findall('(?:href=")(.*?)"', response4.content.decode(errors="ignore"))
+
+                def extractor(url):
+                    href = fetch_url(url)
+                    for link in href:
+                        link = urlparse.urljoin(url, link)
+
+                        if "#" in link: #If you debug any HTML further you will find the hash symbol is used to load different parts of a page that describes the actual information of thet Tab or that page. 
+                            link = link.split("#")[0]
+
+                        if test_url9 in link and link not in results:
+                            results.append(link)
+                            print(link)
+                            extractor(link)
+
+                extractor(test_url9)
             except Exception as e:
                 urllists = []
                 for urls in BeautifulSoup(response4.content).find_all('a', href=True):
@@ -65,6 +87,7 @@ try:
 
                 for urls in urllists:
                     print(urls)
+                    
 
             print("\n")
 
@@ -134,4 +157,4 @@ except KeyboardInterrupt:
     print("Terminated by user.. Quitting. \n")
     time.sleep(1)
     print("Thanks for Using. \U0001f600 \n")
-print("any test commit")
+print("indented again.")    
